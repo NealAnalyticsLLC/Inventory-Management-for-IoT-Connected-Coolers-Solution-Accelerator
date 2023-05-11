@@ -38,7 +38,7 @@
         "StorageBlobDataContributor": "ba92f5b4-2d11-453d-a403-e96b0029c9fe",
         "storageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', variables('synapseStorageName'))]",
         "sparkPoolName": "[concat(variables('synapseWorkspaceName'), '/conncoolerspark')]",
-        "rawDataSasURL": "[concat(parameters('_artifactsLocation'), 'rawdatafiles.zip', parameters('_artifactsLocationSasToken'))]"
+        "rawDataSasURL": "[concat(parameters('_artifactsLocation'), 'analytics/cloudDeploy/table-data/rawdatafiles.zip', parameters('_artifactsLocationSasToken'))]"
     },
 
     "resources": [

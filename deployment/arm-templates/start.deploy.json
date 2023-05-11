@@ -48,9 +48,9 @@
     }
   },
   "variables": {
-    "_artifactsLocation": "https://storageaicooler.blob.core.windows.net/aicooler/",
+    "_artifactsLocation": "https://raw.githubusercontent.com/microsoft/Inventory-Management-for-IoT-Connected-Coolers-Solution-Accelerator/main/",
     "Depolymentjsonprefix": "[if(parameters('useExistingEdgeDevice'),'deployment.physical.template','deployment.simulated.template')]",
-    "_artifactsLocationSasToken": "?sp=rl&st=2022-08-30T17:15:29Z&se=2022-12-31T01:15:29Z&sv=2021-06-08&sr=c&sig=aYYZZYSOO%2B0exPv1cRaKJtiDyn0z%2FSn8S3xdyB8AJRQ%3D",
+    "_artifactsLocationSasToken": "",
     "location": "[deployment().location]",
     "applicationType": "ai-cooler-sa",
     "managedIdentityName": "[concat(variables('namePrefix'),'-deployment-identity-',uniqueString(parameters('resourceGroup')))]",
@@ -254,7 +254,7 @@
       ],
       "properties": {
         "templateLink": {
-          "uri": "[concat(variables('_artifactsLocation'),'storage-account.deploy.json',variables('_artifactsLocationSasToken'))]"
+          "uri": "[concat(variables('_artifactsLocation'),'deployment/arm-templates/storage-account.deploy.json',variables('_artifactsLocationSasToken'))]"
         },
         "mode": "Incremental",
         "parameters": {
@@ -275,7 +275,7 @@
       ],
       "properties": {
         "templateLink": {
-          "uri": "[concat(variables('_artifactsLocation'),'iot.deploy.json',variables('_artifactsLocationSasToken'))]"
+          "uri": "[concat(variables('_artifactsLocation'),'deployment/arm-templates/iot.deploy.json',variables('_artifactsLocationSasToken'))]"
         },
         "mode": "Incremental",
         "parameters": {
@@ -372,7 +372,7 @@
               "properties": {
                 "forceUpdateTag": "[parameters('baseTime')]",
                 "azCliVersion": "2.29.0",
-                "primaryScriptUri": "[concat(parameters('_artifactsLocation'),'register-edge-device.sh', parameters('_artifactsLocationSasToken'))]",
+                "primaryScriptUri": "[concat(parameters('_artifactsLocation'),'deployment/scripts/register-edge-device.sh', parameters('_artifactsLocationSasToken'))]",
                 "environmentVariables": [
                   {
                     "name": "IOTHUB",
@@ -413,7 +413,7 @@
       "resourceGroup": "[variables('VMResourceGroup')]",
       "properties": {
         "templateLink": {
-          "uri": "[concat(variables('_artifactsLocation'),'mariner-vm.latest.json',variables('_artifactsLocationSasToken'))]"
+          "uri": "[concat(variables('_artifactsLocation'),'deployment/arm-templates/mariner-vm.latest.json',variables('_artifactsLocationSasToken'))]"
         },
         "mode": "Incremental",
         "parameters": {
@@ -424,7 +424,7 @@
             "value": "[variables('resourceTags')]"
           },
           "_artifactsLocation": {
-            "value": "[concat(variables('_artifactsLocation'), 'mariner-vm-init.sh', variables('_artifactsLocationSasToken'))]"
+            "value": "[concat(variables('_artifactsLocation'), 'deployment/scripts/mariner-vm-init.sh', variables('_artifactsLocationSasToken'))]"
           },
           "edgeDeviceConnectionString": {
             "value": "[reference('register-edge-device.sh').outputs.deviceConnectionString.value]"
@@ -545,14 +545,14 @@
               "properties": {
                 "forceUpdateTag": "[parameters('baseTime')]",
                 "azCliVersion": "2.29.0",
-                "primaryScriptUri": "[concat(parameters('_artifactsLocation'),'deploy-modules.sh',parameters('_artifactsLocationSasToken'))]",
+                "primaryScriptUri": "[concat(parameters('_artifactsLocation'),'deployment/scripts/deploy-modules.sh',parameters('_artifactsLocationSasToken'))]",
                 "supportingScriptUris": [
-                  "[uri(parameters('_artifactsLocation'),concat(parameters('Depolymentjsonprefix'),'.json',parameters('_artifactsLocationSasToken')))]"
+                  "[uri(parameters('_artifactsLocation'),concat('iotEdge/', parameters('Depolymentjsonprefix'),'.json',parameters('_artifactsLocationSasToken')))]"
                 ],
                 "environmentVariables": [
                   {
                     "name": "DEPLOYMENT_MANIFEST_TEMPLATE_URL",
-                    "value": "[uri(parameters('_artifactsLocation'),concat(parameters('Depolymentjsonprefix'),'.json', parameters('_artifactsLocationSasToken')))]"
+                    "value": "[uri(parameters('_artifactsLocation'),concat('iotEdge/', parameters('Depolymentjsonprefix'),'.json', parameters('_artifactsLocationSasToken')))]"
                   },
                   {
                     "name": "HUB_NAME",
@@ -637,7 +637,7 @@
       ],
       "properties": {
         "templateLink": {
-          "uri": "[concat(variables('_artifactsLocation'),'synapse.deploy.json',variables('_artifactsLocationSasToken'))]"
+          "uri": "[concat(variables('_artifactsLocation'),'deployment/arm-templates/synapse.deploy.json',variables('_artifactsLocationSasToken'))]"
         },
         "mode": "Incremental",
         "parameters": {
@@ -661,7 +661,7 @@
       ],
       "properties": {
         "templateLink": {
-          "uri": "[concat(variables('_artifactsLocation'),'asa.deploy.json',variables('_artifactsLocationSasToken'))]"
+          "uri": "[concat(variables('_artifactsLocation'),'deployment/arm-templates/asa.deploy.json',variables('_artifactsLocationSasToken'))]"
         },
         "mode": "Incremental",
         "parameters": {
@@ -694,7 +694,7 @@
       ],
       "properties": {
         "templateLink": {
-          "uri": "[concat(variables('_artifactsLocation'),'webapp.deploy.json',variables('_artifactsLocationSasToken'))]"
+          "uri": "[concat(variables('_artifactsLocation'),'deployment/arm-templates/webapp.deploy.json',variables('_artifactsLocationSasToken'))]"
         },
         "mode": "Incremental",
         "parameters": {
@@ -705,10 +705,10 @@
             "value": "[variables('resourceTags')]"
           },
           "_artifactsLocation": {
-            "value": "[variables('_artifactsLocation')]"
+            "value": "https://aicoolerstorage.blob.core.windows.net/sarthak-ai-cooler/"
           },
           "_artifactsLocationSasToken": {
-            "value": "[variables('_artifactsLocationSasToken')]"
+            "value": "sp=r&st=2023-05-11T23:07:27Z&se=2024-12-31T08:07:27Z&spr=https&sv=2022-11-02&sr=b&sig=FY7lK0tnINiwaYJMYPHsF2cQOCYVg4PmnWlufoJBFGA%3D"
           }
         }
       }
