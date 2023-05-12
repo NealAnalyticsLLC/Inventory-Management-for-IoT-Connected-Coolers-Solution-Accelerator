@@ -48,7 +48,7 @@
     }
   },
   "variables": {
-    "_artifactsLocation": "https://raw.githubusercontent.com/microsoft/Inventory-Management-for-IoT-Connected-Coolers-Solution-Accelerator/main/",
+    "_artifactsLocation": "https://raw.githubusercontent.com/NealAnalyticsLLC/Inventory-Management-for-IoT-Connected-Coolers-Solution-Accelerator/main/",
     "Depolymentjsonprefix": "[if(parameters('useExistingEdgeDevice'),'deployment.physical.template','deployment.simulated.template')]",
     "_artifactsLocationSasToken": "",
     "location": "[deployment().location]",
@@ -708,7 +708,7 @@
             "value": "https://aicoolerstorage.blob.core.windows.net/sarthak-ai-cooler/"
           },
           "_artifactsLocationSasToken": {
-            "value": "sp=r&st=2023-05-11T23:07:27Z&se=2024-12-31T08:07:27Z&spr=https&sv=2022-11-02&sr=b&sig=FY7lK0tnINiwaYJMYPHsF2cQOCYVg4PmnWlufoJBFGA%3D"
+            "value": "?sp=r&st=2023-05-11T23:07:27Z&se=2024-12-31T08:07:27Z&spr=https&sv=2022-11-02&sr=b&sig=FY7lK0tnINiwaYJMYPHsF2cQOCYVg4PmnWlufoJBFGA%3D"
           }
         }
       }
